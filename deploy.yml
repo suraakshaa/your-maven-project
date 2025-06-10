@@ -1,0 +1,16 @@
+---
+- name: Deploy Maven Artifact
+  hosts: local
+
+  tasks:
+    - name: Ensure deployment directory exists
+      file:
+        path: "/var/lib/jenkins/deployment"
+        state: directory
+        mode: '0755'
+
+    - name: Copy JAR to deployment directory
+      copy:
+        src: "/var/lib/jenkins/workspace/HelloMaven-CI/target/maven-junit5-example-1.0-SNAPSHOT.jar"
+        dest: "/var/lib/jenkins/deployment/HelloMaven.jar"
+        remote_src: yes
